@@ -3,14 +3,13 @@ import LoginForm from '../forms/LoginForm.js';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {login} from '../../actions/auth'
-
+{/* kiedy klikniemy na login ta funkcja jest wywolywana
+    // wołamy dyspozytora z auth.js  danymi data - sa to dane z formularza*/}
 class LoginPage extends React.Component{
 
-    // kiedy klikniemy na login ta funkcja jest wywolywana
-    // wołamy dyspozytora z auth.js  danymi data - sa to dane z formularza
-    submit = data => {
-        this.props.login(data).then(() => this.props.history.push("/"));
-    };
+
+    submit = data =>
+        this.props.login(data).then(() => this.props.history.push("/dashboard"));
 
     render(){
         return(

@@ -44,6 +44,7 @@ class LoginForm extends React.Component {
 
         return (
             <Form onSubmit={this.onSubmit} loading={loading}>
+                 {/*gdy istenieje  globalny obiekt error to wyswietl komunikat*/}
                 {errors.global && (
                     <Message negative>
                         <Message.Header>Something went wrong</Message.Header>
