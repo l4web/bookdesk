@@ -1,18 +1,30 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {Route} from 'react-router-dom';
 import HomePage from "./components/pages/HomePage";
 import LoginPage from "./components/pages/LoginPage";
 import SignUpPage from "./components/pages/SignUpPage";
 import DashboardPage from "./components/pages/DashboardPage";
+import ConfirmationPage from "./components/pages/ConfirmationPage";
+import ForgotPassowrdPage from "./components/pages/ForgotPasswordPage";
+import ResetPasswordPage from "./components/pages/ResetPasswordPage";
+import NewBookPage from "./components/pages/NewBookPage";
 import UserRoute from './components/routes/UserRoute';
 import GuestRoute from './components/routes/GuestRoute';
 import PropTypes from 'prop-types'
+import TopNavigation from './components/navigation/TopNavigation';
 
-const App = ({location}) => (
+const App = ({location, isAuthenticated}) => (
     <div className="ui container">
+        {isAuthenticated && <TopNavigation/> }
+
         <Route location={location} path="/" exact component={HomePage}/>
+        <Route location={location} path="/confirmation/:token" exact component={ConfirmationPage}/>
         <GuestRoute location={location} path="/login" exact component={LoginPage}/>
         <GuestRoute location={location} path="/signup" exact component={SignUpPage}/>
+        <GuestRoute location={location} path="/forgot_password" exact component={ForgotPassowrdPage}/>
+        <GuestRoute location={location} path="/reset_password/:token" exact component={ResetPasswordPage}/>
+        <GuestRoute location={location} path="/books/new" exact component={NewBookPage}/>
         <UserRoute location={location} path="/dashboard" exact component={DashboardPage}/>
     </div>
 );
@@ -20,7 +32,14 @@ const App = ({location}) => (
 App.propTypes = {
     location: PropTypes.shape({
         pathname: PropTypes.string
-    })
+    }).isRequired,
+    isAuthenticated:PropTypes.bool.isRequired
+};
+
+function mapStateToProps(state){
+    return{
+        isAuthenticated: !!state.user.email
+    }
 }
 
-export default App;
+export default connect(mapStateToProps)(App);

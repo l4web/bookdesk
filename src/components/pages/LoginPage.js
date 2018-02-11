@@ -2,7 +2,8 @@ import React from 'react';
 import LoginForm from '../forms/LoginForm.js';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {login} from '../../actions/auth'
+import {Link } from 'react-router-dom';
+import {login} from '../../actions/auth';
 {/* kiedy klikniemy na login ta funkcja jest wywolywana
     // wołamy dyspozytora z auth.js  danymi data - sa to dane z formularza*/}
 class LoginPage extends React.Component{
@@ -17,6 +18,7 @@ class LoginPage extends React.Component{
                 <h1>Login Page</h1>
 
                 <LoginForm submit={this.submit}/>
+                <Link to="/forgot_password">Forgot password?</Link>
             </div>
         )
     }
