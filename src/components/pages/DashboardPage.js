@@ -1,29 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux';
-import ConfirmEmailMessage from '../messages/ConfirmEmailMessage';
-import allBooksSelector from '../../reducers/books';
-import AddBookCtA from '../ctas/AddBookCtA';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import ConfirmEmailMessage from "../messages/ConfirmEmailMessage";
 
-const DashboardPage  = ({isConfirmed, books}) => (
-    <div>
+class DashboardPage extends React.Component {
+  render() {
+    const { isConfirmed } = this.props;
+    return (
+      <div className="container-fluid">
         {!isConfirmed && <ConfirmEmailMessage />}
-        {books.length === 0 && <AddBookCtA/>}
-    </div>
-);
+      </div>
+    );
+  }
+}
 
 DashboardPage.propTypes = {
-    isConfirmed: PropTypes.bool.isRequired,
-    book: PropTypes.arrayOf(PropTypes.shape({
-        title: PropTypes.string.isRequired
-    }).isRequired).isRequired
+  isConfirmed: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {
-    return{
-        isConfirmed: !!state.user.confirmed,
-        books: allBooksSelector(state)
-    }
-
+  return {
+    isConfirmed: !!state.user.confirmed
+  };
 }
+
 export default connect(mapStateToProps)(DashboardPage);

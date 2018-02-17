@@ -1,15 +1,18 @@
-// reducer to taka funkcja ktora pobiera state i akcje i zwraca nowy state w zaleznosci od akcji
-// defaultowo zwraca ten same state ktory mu podano
-// jako parametr ma ustwione defaultowo puste obiekty
+import {
+  USER_LOGGED_IN,
+  USER_LOGGED_OUT,
+  FETCH_CURRENT_USER_SUCCESS
+} from "../types";
 
-import {USER_LOGGED_IN , USER_LOGGED_OUT} from "../types";
-
-export default function user(state = {}, action = {}) {
-    switch (action.type){
-        case USER_LOGGED_IN:
-            return action.user;
-        case USER_LOGGED_OUT:
-            return {};
-        default: return state;
-    }
+export default function user(state = { loaded: false }, action = {}) {
+  switch (action.type) {
+    case USER_LOGGED_IN:
+      return { ...action.user, loaded: true };
+    case FETCH_CURRENT_USER_SUCCESS:
+      return { ...state, ...action.user, loaded: true };
+    case USER_LOGGED_OUT:
+      return { loaded: true };
+    default:
+      return state;
+  }
 }
